@@ -1,10 +1,20 @@
 #!/usr/bin/python
 
 import telebot
+import pyttsx3
 
 API_TOKEN = '1763486620:AAEygw15xnK5-Tdni7sLJOK5JQ3z-Djgiok'
 
 Dango = telebot.TeleBot(API_TOKEN)
+
+###################################### Speak part engine
+engine  = pyttsx3.init()
+
+
+
+
+
+
 user = Dango.get_me()
 print(user)
 print("\n")
@@ -15,7 +25,7 @@ print(update)
 @Dango.message_handler(commands=['help', 'start'])
 def send_welcome(message):
     Dango.reply_to(message, """\
-Holiwis yo soy DangoBot... etoou... también puedes llamarme BB hehe.
+Holiwis yo soy DangoBot... etoou... también puedes llamarme solo dango hehe.
 Pues.. mi amo (@niker_up) me ha creado para ser un asistente domótico y estaré en cosntante modificación, espero dar lo mejor de mí n.n\
 """)
     #sti = open('C:/Users/mario/Documents/Telegram-bot/Dango_bot/files/stickers/hello.webp', 'rb')
@@ -31,12 +41,17 @@ Pues.. mi amo (@niker_up) me ha creado para ser un asistente domótico y estaré
 # Handle all other messages with content_type 'text' (content_types defaults to ['text'])
 @Dango.message_handler(func=lambda message: True)
 def echo_message(message):
+    
+    def speak(audio):
+        engine.say(audio)
+        engine.runAndWait()
     print(message)
     print("\n")
-    #if (message.text.upper().find(":(") > 0):
-    #    Dango.send_message(message.chat.id, "No estes triste, la gente te quiere, yo te quiero! <3")
-    #    sti = open('C:/Users/mario/Documents/Telegram-bot/Dango_bot/files/stickers/hug.webp', 'rb')
-    #    Dango.send_sticker(message.chat.id, sti)
+    if (message.text.upper().find("hola") > 0):
+        Dango.send_message(message.chat.id, "Hola señor")
+        speak("hola")
+        sti = open('C:/Users/mario/Documents/Telegram-bot/Dango_bot/files/stickers/hug.webp', 'rb')
+        Dango.send_sticker(message.chat.id, sti)
     #elif (message.text.upper().find(":(") < 0):
     Dango.reply_to(message, message.text)
     #    sti = open('C:/Users/mario/Documents/Telegram-bot/Dango_bot/files/stickers/aww.webp', 'rb')
