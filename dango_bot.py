@@ -10,8 +10,11 @@ Dango = telebot.TeleBot(API_TOKEN)
 ###################################### Speak part engine
 engine  = pyttsx3.init()
 
+def speak(audio):
+    engine.say(audio)
+    engine.runAndWait()
 
-
+speak("Iniciando el bot de telegram..")
 
 
 
@@ -42,14 +45,10 @@ Pues.. mi amo (@niker_up) me ha creado para ser un asistente domótico y estaré
 @Dango.message_handler(func=lambda message: True)
 def echo_message(message):
     
-    def speak(audio):
-        engine.say(audio)
-        engine.runAndWait()
     print(message)
     print("\n")
     if (message.text.upper().find("hola") > 0):
-        Dango.send_message(message.chat.id, "Hola señor")
-        speak("hola")
+        Dango.send_message(message.chat.id, "Hola señor")        
         sti = open('C:/Users/mario/Documents/Telegram-bot/Dango_bot/files/stickers/hug.webp', 'rb')
         Dango.send_sticker(message.chat.id, sti)
     #elif (message.text.upper().find(":(") < 0):

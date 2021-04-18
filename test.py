@@ -8,28 +8,13 @@ voz = pyttsx3.init()
 def hablar(audio):
     voz.say(audio)
     voz.runAndWait()
+#hablar()
 
-def time_():
+def tiempo():
     tiempo = datetime.datetime.now().strftime("%H:%M:%S")
     hablar("La hora en estos momentos es ")
     hablar(tiempo)
-
-#time_()
-
-def saludo():
-    hora = datetime.datetime.now().hour  
-
-    if hora>=6 and hora<12:
-        hablar("Buenos días señor")
-    if hora>=12 and hora<18:
-        hablar("Buenas tardes señor")
-    #elif hora >= 18 and hora <24:
-    else:
-        hablar("Buenas noches señor")
-
-    hablar("DangoProtype a su servicio")
-
-#saludo()
+#tiempo()
 
 def dia():
     dia = datetime.datetime.now().date
@@ -40,15 +25,34 @@ def dia():
     hablar(dia)
     hablar(mes)
     hablar(anio)
-
 #dia()
+
+def saludo():
+    hablar("Bienvenido de nuevo! aquí Bawy lo saluda con un abrazo virtual !")
+    hablar("iniciando sistemas....")
+    tiempo()
+    dia()
+    hora = datetime.datetime.now().hour  
+    if hora>=6 and hora<12:
+        hablar("Buenos días señor")
+    if hora>=12 and hora<18:
+        hablar("Buenas tardes señor")
+    #elif hora >= 18 and hora <24:
+    else:
+        hablar("Buenas noches señor")
+
+    hablar("DangoProtype a su servicio")
+#saludo()
 
 def TomarComando():
     r = sr.Recognizer()
     with sr.Microphone() as source:
+        r.adjust_for_ambient_noise(source, duration=5)
         print("Listening...")
-        r.pause_threshold = 2
-        audio = r.listen(source)
+        r.pause_threshold = 1
+        audio = r.listen(source,timeout=5)
+
+        #r.adjust_for_ambient_noise(source, duration=5)
     try:
         print("Reconociendo.....")
         query = r.recognize_google(audio, language='es-AR')
@@ -59,7 +63,6 @@ def TomarComando():
         hablar("Digalo nuevamente, porfavor")
         return "None"
     return query
-
 TomarComando()
 
 #f __name__ == "__main__":
@@ -73,7 +76,7 @@ TomarComando()
 #           #para un fácil reconocimiento 
 #
 #           if "time" in query:
-#               time_()
+#               tiempo()
 #
 #           elif "día" in query:
 #               dia()
