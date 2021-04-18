@@ -46,48 +46,45 @@ def dia():
 def TomarComando():
     r = sr.Recognizer()
     with sr.Microphone() as source:
-        print("Escuchando.....")
-        r.pause_threshold = 1
+        print("Listening...")
+        r.pause_threshold = 2
         audio = r.listen(source)
-    
     try:
         print("Reconociendo.....")
         query = r.recognize_google(audio, language='es-AR')
         print(query)
-
     except Exception as e:
         print(e)
         print("Digalo nuevamente, porfavor")
         hablar("Digalo nuevamente, porfavor")
         return "None"
-
     return query
 
-#TomarComando()
+TomarComando()
 
-if __name__ == "__main__":
-
-    saludo()
-
-    while True:
-            query = TomarComando().lower()
-
-            #todos los comandos serán guardados por bajocaso
-            #para un fácil reconocimiento 
-
-            if "time" in query:
-                time_()
-
-            elif "día" in query:
-                dia()
-
-            elif "wikipedia" in query:
-                hablar("Buscando en wikipedia...")
-                query = query.replace("wikipedia","")
-                result = wikipedia.summary(query,sentences=3)
-                hablar("Según wikipedia")
-                print(result)
-                
-
-
+#f __name__ == "__main__":
+#
+#   saludo()
+#
+#   while True:
+#           query = TomarComando().lower()
+#
+#           #todos los comandos serán guardados por bajocaso
+#           #para un fácil reconocimiento 
+#
+#           if "time" in query:
+#               time_()
+#
+#           elif "día" in query:
+#               dia()
+#
+#           elif "wikipedia" in query:
+#               hablar("Buscando en wikipedia...")
+#               query = query.replace("wikipedia","")
+#               result = wikipedia.summary(query,sentences=3)
+#               hablar("Según wikipedia")
+#               print(result)
+#               
+#
+#
 
