@@ -1,6 +1,7 @@
-import pyttsx3
+import pyttsx3                          #pip install pyttsx3
 import datetime
-import speech_recognition as sr
+import speech_recognition as sr         #pip install speeechrecognition
+import wikipedia                        #pip install wikipedia                                        
 
 voz = pyttsx3.init()
 
@@ -13,20 +14,34 @@ def time_():
     hablar("La hora en estos momentos es ")
     hablar(tiempo)
 
-time_()
+#time_()
 
-def inicio():
-     hora = datetime.datetime.now().hour
+def saludo():
+    hora = datetime.datetime.now().hour  
 
     if hora>=6 and hora<12:
         hablar("Buenos días señor")
-    elif hora>=12 and hora<18:
+    if hora>=12 and hora<18:
         hablar("Buenas tardes señor")
     #elif hora >= 18 and hora <24:
     else:
         hablar("Buenas noches señor")
 
     hablar("DangoProtype a su servicio")
+
+#saludo()
+
+def dia():
+    dia = datetime.datetime.now().date
+    anio = datetime.datetime.now().year
+    mes = datetime.datetime.now().month
+
+    hablar("El día de hoy es")
+    hablar(dia)
+    hablar(mes)
+    hablar(anio)
+
+#dia()
 
 def TomarComando():
     r = sr.Recognizer()
@@ -37,7 +52,7 @@ def TomarComando():
     
     try:
         print("Reconociendo.....")
-        query = r.recognize_google(audio, language='es')
+        query = r.recognize_google(audio, language='es-AR')
         print(query)
 
     except Exception as e:
@@ -48,4 +63,31 @@ def TomarComando():
 
     return query
 
-TomarComando()
+#TomarComando()
+
+if __name__ == "__main__":
+
+    saludo()
+
+    while True:
+            query = TomarComando().lower()
+
+            #todos los comandos serán guardados por bajocaso
+            #para un fácil reconocimiento 
+
+            if "time" in query:
+                time_()
+
+            elif "día" in query:
+                dia()
+
+            elif "wikipedia" in query:
+                hablar("Buscando en wikipedia...")
+                query = query.replace("wikipedia","")
+                result = wikipedia.summary(query,sentences=3)
+                hablar("Según wikipedia")
+                print(result)
+                
+
+
+
