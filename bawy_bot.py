@@ -1,28 +1,27 @@
-#!/usr/bin/python
-
-# This is a simple echo bot using the decorator mechanism.
-# It echoes any incoming text messages.
 
 import telebot
 
-API_TOKEN = '1733267643:AAG0KXIZdVUMGoI-g1Y1bg5osjrFhnGZKKQ'
+API_TOKEN = '1733267643:AAEzJX64o3iQ9uHFGuZLig24tL6qYFvzeco'
 
 bawy = telebot.TeleBot(API_TOKEN)
-
-
+user = bawy.get_me()
+print(user)
+print("\n")
+update = bawy.get_updates()
+print(update)
 
 # Handle '/start' and '/help'
 @bawy.message_handler(commands=['help', 'start'])
 def send_welcome(message):
     bawy.reply_to(message, """\
-Hola a todos yo soy BawyBot... etoou... también puedes llamarme BB hehe.
-Pues.. mi amo me ha creado para ser un asistente domótico y estaré en cosntante modificación, espero dar lo mejor de mí n.n\
+Holiwis yo soy BawyBot... etoou... también puedes llamarme BB hehe.
+Pues.. mi amo (@BawBaaw) me ha creado para ser un asistente domótico y estaré en cosntante modificación, espero dar lo mejor de mí n.n\
 """)
-    sti = open('/files/stickers/hello.webp', 'rb')
-    bawy.send_sticker(message, sti)
-    bawy.send_sticker(message, "FILEID")
+    sti = open('C:/Users/mario/Documents/Telegram-bot/bawy_bot/files/stickers/hello.webp', 'rb')
+    bawy.send_sticker(message.chat.id, sti)
 
-#def sendSticker(message):|
+
+#def sendSticker(message):
 #    # sendSticker
 #    sti = open('/files/stickers/aww.webp', 'rb')
 #    tb.send_sticker(chat_id, sti)
@@ -31,9 +30,19 @@ Pues.. mi amo me ha creado para ser un asistente domótico y estaré en cosntant
 # Handle all other messages with content_type 'text' (content_types defaults to ['text'])
 @bawy.message_handler(func=lambda message: True)
 def echo_message(message):
-
-    bawy.reply_to(message, message.text)
-
-
+    print(message)
+    print("\n")
+    if (message.text.upper().find(":(", ":c") > 0):
+        bawy.send_message(message.chat.id, "No estes triste, la gente te quiere, yo te quiero! <3")
+        sti = open('C:/Users/mario/Documents/Telegram-bot/bawy_bot/files/stickers/hug.webp', 'rb')
+        bawy.send_sticker(message.chat.id, sti)
+    elif (message.text.upper().find(":(") < 0):
+        bawy.reply_to(message, message.text)
+        sti = open('C:/Users/mario/Documents/Telegram-bot/bawy_bot/files/stickers/aww.webp', 'rb')
+        bawy.send_sticker(message.chat.id, sti)
+    elif (message.text.upper().find("bawy") > 0):
+        bawy.send_message(message.chat.id, "Respecto a mi amo Bawy lo único que puedo decir es que le debo mucho y lo quiero n.n")
+        sti = open('C:/Users/mario/Documents/Telegram-bot/bawy_bot/files/stickers/aww.webp', 'rb')
+        bawy.send_sticker(message.chat.id, sti)
 
 bawy.polling()
