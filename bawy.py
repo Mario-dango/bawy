@@ -1,5 +1,5 @@
 import telebot
-from flask import flask, request
+from flask import Flask, request
 import os
 
 API_TOKEN = '1733267643:AAEzJX64o3iQ9uHFGuZLig24tL6qYFvzeco'
@@ -26,6 +26,6 @@ def webhook():
     bot.set_webhook(url='https://bawy.herokuapp.com/' + API_TOKEN)
     return "!", 200
 
-if __name__ = "__main__":
+if __name__ == "__main__":
     server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
 
