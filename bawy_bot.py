@@ -1,9 +1,11 @@
-
 import telebot
 from telebot.apihelper import send_message
 from telebot.types import Chat, Message
 
-API_TOKEN = '1733267643:AAEzJX64o3iQ9uHFGuZLig24tL6qYFvzeco'
+from api_tg import api
+token = api()
+print()
+API_TOKEN = token
 
 bawy = telebot.TeleBot(API_TOKEN)
 user = bawy.get_me()
